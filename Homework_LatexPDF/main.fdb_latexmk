@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1755422423.85811 "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" "main.pdf" "main" 1755422425.65872 0
+["pdflatex"] 1755422718.00761 "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" "main.pdf" "main" 1755422719.8919 0
   "bab1.tex" 1755304119 3203 cf5bee19e5ccd72bbb997a6dbeed0aed ""
   "bab2.tex" 1755422422 13379 df027e92e148af257120bbd51f2a6fc1 ""
   "bab3.tex" 1755303308 78 460350cbc771a0e40759202f8bc8dec0 ""
@@ -98,11 +98,11 @@
   "c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1718776259 5528846 47cdb80fb017a8505c1f8b75ba228bf0 ""
   "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1718776444 8238167 78694efa6f8812ebdd7fb412808e0faf ""
   "c:/texlive/2024/texmf.cnf" 1718776229 713 e69b156964470283e0530f5060668171 ""
-  "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" 1755422056 1155 d49eccfe9da782f89e8792a606ea0bd2 ""
+  "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" 1755422716 1141 2de27cb2cd4da3dc6b310c70cb84a035 ""
   "gambar/ffp.jpg" 1755421856 263690 6b9061cb9ee2913c439865267ac7fb90 ""
-  "main.aux" 1755422425 2498 aa60b849033126a313550124ad9eb8be "pdflatex"
-  "main.out" 1755422425 2771 98eb3862575043b55ba69c0d0a76a51e "pdflatex"
-  "main.tex" 1755422056 1155 d49eccfe9da782f89e8792a606ea0bd2 ""
+  "main.aux" 1755422719 2498 aa60b849033126a313550124ad9eb8be "pdflatex"
+  "main.out" 1755422719 2771 98eb3862575043b55ba69c0d0a76a51e "pdflatex"
+  "main.tex" 1755422716 1141 2de27cb2cd4da3dc6b310c70cb84a035 ""
   (generated)
   "main.aux"
   "main.log"
