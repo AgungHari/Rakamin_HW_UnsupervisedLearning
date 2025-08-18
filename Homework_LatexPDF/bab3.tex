@@ -1,4 +1,183 @@
 \newpage
 \section{Desain dan Implementasi}
+% buat penjelasan tentang desain dan implementasi sistem untuk membuat model unsupervised learning untuk clustering customer airline frequent flyer program
+Pada bab ini, akan dijelaskan mengenai desain dan implementasi sistem yang digunakan untuk membuat model unsupervised learning dalam melakukan clustering terhadap customer airline frequent flyer program. Sistem ini bertujuan untuk mengelompokkan customer berdasarkan karakteristik dan perilaku mereka dalam menggunakan layanan penerbangan, sehingga dapat membantu perusahaan dalam memahami kebutuhan dan preferensi pelanggan.
+
 
 \subsection{Deskripsi sistem}
+Sistem yang dibangun menggunakan data dari frequent flyer program yang berisi informasi mengenai customer airline. Data ini mencakup berbagai atribut seperti ID member, tanggal bergabung dengan program, jenis kelamin, tier program, kota dan provinsi asal, umur, jumlah penerbangan, total jarak penerbangan, dan informasi lainnya yang relevan. Namun sebelum itu data yang digunakan harus melalui proses cleaning, transformasi, dan normalisasi untuk memastikan kualitas data yang baik. Agar tugas clustering dapat dilakukan dengan efektif, maka diperlukan alur kerja yang sistematis. Gambar \ref{fig:flowchart} menunjukkan alur kerja sistem yang digunakan dalam tugas ini.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gambar/flowchart.png}
+    \caption{Alur kerja sistem}
+    \label{fig:flowchart}
+\end{figure}
+
+\subsection{Deskripsi Data}
+% Code Description
+% - MEMBER_NO-b : ID Member
+% - FFP_DATE : Frequent Flyer Program Join Date
+% - FIRST_FLIGHT_DATE : Tanggal Penerbangan pertama
+% - GENDER : Jenis Kelamin
+% - FFP_TIER : Tier dari Frequent Flyer Program
+% - WORK_CITY : Kota Asal
+% - WORK_PROVINCE : Provinsi Asal
+% - WORK_COUNTRY : Negara Asal
+% - AGE : Umur Customer
+% - LOAD_TIME : Tanggal data diambil
+% - FLIGHT_COUNT : Jumlah penerbangan Customer
+% - BP_SUM : Rencana Perjalanan
+% - SUM_YR_1 : Fare Revenue
+% - SUM_YR_2 : Votes Prices
+% - SEG_KM_SUM : Total jarak(km) penerbangan yg sudah dilakukan
+% - LAST_FLIGHT_DATE : Tanggal penerbangan terakhir
+% - LAST_TO_END : Jarak waktu penerbangan terakhir ke pesanan penerbangan paling akhir
+% - AVG_INTERVAL : Rata-rata jarak waktu
+% - MAX_INTERVAL : Maksimal jarak waktu
+% - EXCHANGE_COUNT : Jumlah penukaran
+% - avg_discount : Rata rata discount yang didapat customer
+% - Points_Sum : Jumlah poin yang didapat customer
+% - Point_NotFlight : point yang tidak digunakan oleh members
+
+Data yang digunakan dalam sistem ini merupakan data dari frequent flyer program yang berisi informasi mengenai customer airline. Berikut adalah deskripsi dari atribut-atribut yang terdapat dalam dataset :
+
+\begin{itemize}
+    \item \textbf{MEMBER\_NO}: ID unik untuk setiap member.
+    \item \textbf{FFP\_DATE}: Tanggal bergabung dengan frequent flyer program.
+    \item \textbf{FIRST\_FLIGHT\_DATE}: Tanggal penerbangan pertama yang dilakukan oleh member.
+    \item \textbf{GENDER} :Jenis kelamin dari member (Laki-laki atau Perempuan).
+    \item \textbf{FFP\_TIER}: Tier dari frequent flyer program yang diikuti oleh member (misalnya Silver, Gold, Platinum).
+    \item \textbf{WORK\_CITY}: Kota asal member.
+    \item \textbf{WORK\_PROVINCE}: Provinsi asal member.
+    \item \textbf{WORK\_COUNTRY}: Negara asal member.
+    \item \textbf{AGE}: Umur customer pada saat data diambil.
+    \item \textbf{LOAD\_TIME}: Tanggal dan waktu ketika data diambil.
+    \item \textbf{FLIGHT\_COUNT}: Jumlah penerbangan yang telah dilakukan oleh customer.
+    \item \textbf{BP\_SUM}: Rencana perjalanan yang telah dilakukan oleh customer.
+    \item \textbf{SUM\_YR\_1}: Total fare revenue yang dihasilkan oleh customer pada tahun pertama.
+    \item \textbf{SUM\_YR\_2}: Total fare revenue yang dihasilkan oleh customer pada tahun kedua.
+    \item \textbf{SEG\_KM\_SUM}: Total jarak (dalam kilometer) penerbangan yang telah dilakukan oleh customer.
+    \item \textbf{LAST\_FLIGHT\_DATE}: Tanggal penerbangan terakhir yang dilakukan oleh customer.
+    \item \textbf{LAST\_TO\_END}: Jarak waktu antara penerbangan terakhir dengan pesanan penerbangan paling akhir.
+    \item \textbf{AVG\_INTERVAL}: Rata-rata jarak waktu antara penerbangan yang dilakukan oleh customer.
+    \item \textbf{MAX\_INTERVAL}: Maksimal jarak waktu antara penerbangan yang dilakukan oleh customer.
+    \item \textbf{EXCHANGE\_COUNT}: Jumlah penukaran yang dilakukan oleh customer.
+    \item \textbf{avg\_discount}: Rata-rata diskon yang didapatkan oleh customer.
+    \item \textbf{Points\_Sum}: Jumlah poin yang didapatkan oleh customer dari frequent flyer program.
+    \item \textbf{Point\_NotFlight}: Poin yang tidak digunakan oleh members, biasanya poin ini bisa digunakan untuk berbagai keperluan seperti upgrade kelas penerbangan atau penukaran dengan barang.
+    \item \textbf{Points\_Sum}: Jumlah total poin yang telah dikumpulkan oleh customer dari frequent flyer program.
+    \item \textbf{Point\_NotFlight}: Poin yang tidak digunakan oleh members, biasanya poin ini bisa digunakan untuk berbagai keperluan seperti upgrade kelas penerbangan atau penukaran dengan barang.
+\end{itemize}
+
+\subsection{Feature Extraction}
+% Feature Extraction
+Dalam tugas ini, agar model unsupervised learning dapat bekerja dengan baik, perlu dilakukan feature extraction untuk memilih atribut-atribut yang relevan dari dataset. Atribut-atribut yang dipilih harus mampu merepresentasikan karakteristik dan perilaku customer dalam menggunakan layanan penerbangan. Agar mendapatkan fitur fitur yang relevan maka perlu dilakukan analisis terhadap data yang ada. Diharapkan dengan analisa analisa tersebut, fitur yang dihasilkan dapat memberikan informasi yang cukup untuk melakukan clustering terhadap customer airline frequent flyer program.
+
+\subsection{EDA (Exploratory Data Analysis)}
+% EDA
+Exploratory Data Analysis (EDA) dilakukan untuk memahami karakteristik data yang ada, menemukan pola, dan mengidentifikasi hubungan antar atribut. EDA juga membantu dalam mendeteksi adanya missing values, outliers, dan distribusi data. Beberapa teknik yang digunakan dalam EDA antara lain visualisasi data menggunakan grafik, analisis statistik deskriptif, dan pengelompokan data berdasarkan atribut tertentu.
+
+Namun sebelum melakukan EDA, perlu dilakukan beberapa tahap persiapan data seperti penyesuaian tipe data, penghapusan duplikasi, dan penanganan missing values. Setelah data siap, EDA dapat dilakukan dengan menggunakan berbagai teknik visualisasi seperti histogram, boxplot, scatter plot, dan heatmap untuk melihat hubungan antar atribut.
+
+\subsubsection{Data Cleaning}
+% Data Cleaning
+Data cleaning adalah proses penting dalam persiapan data sebelum melakukan analisis. Proses ini meliputi penghapusan duplikasi, penanganan missing values, dan penyesuaian tipe data. Dalam tugas ini, data yang digunakan telah melalui proses cleaning untuk memastikan kualitas data yang baik. Berikut merupakan jumlah missing values pada setiap atribut yang ada pada dataset, lstlisting berikut merupakan output cell dari notebook yang menampilkan jumlah missing values pada setiap atribut:
+
+\begin{lstlisting}[language=Python]
+# Menampilkan jumlah missing values pada setiap atribut
+missing_values = df.isnull().sum()
+
+# output
+MEMBER_NO               0
+FFP_DATE                0
+FIRST_FLIGHT_DATE       0
+GENDER                  3
+FFP_TIER                0
+WORK_CITY            2269
+WORK_PROVINCE        3248
+WORK_COUNTRY           26
+AGE                   420
+LOAD_TIME               0
+FLIGHT_COUNT            0
+BP_SUM                  0
+SUM_YR_1              551
+SUM_YR_2              138
+SEG_KM_SUM              0
+LAST_FLIGHT_DATE        0
+LAST_TO_END             0
+AVG_INTERVAL            0
+MAX_INTERVAL            0
+EXCHANGE_COUNT          0
+avg_discount            0
+Points_Sum              0
+Point_NotFlight         0
+dtype: int64
+\end{lstlisting}
+
+Dapat dilihat bahwa 5.15\% missing value dari keseluruhan data, karena jumlahnya cukup kecil saya memutuskan untuk membuang data yang memiliki missing value, hal ini dilakukan untuk menjaga kualitas data yang akan digunakan dalam proses clustering. Setelah proses data cleaning selesai, data siap digunakan untuk analisis lebih lanjut.
+
+\subsubsection{Handle Duplikat}
+% Handle Duplikat
+Setelah proses data cleaning, langkah selanjutnya adalah menangani duplikasi data. Duplikasi dapat terjadi ketika ada beberapa entri yang memiliki informasi yang sama. Dalam tugas ini, saya melakukan pengecekan terhadap duplikasi data dengan menggunakan fungsi \texttt{duplicated()} pada DataFrame. Jika ditemukan duplikasi, maka entri tersebut akan dihapus untuk memastikan bahwa setiap customer hanya memiliki satu entri dalam dataset.
+
+\begin{lstlisting}[language=Python]
+    # Print jumlah data duplikat
+    print("Jumlah data duplikat:", df.duplicated().sum())
+
+    # Output
+    Jumlah data duplikat: 0
+\end{lstlisting}
+
+Setelah melakukan pengecekan, ternyata tidak ditemukan data duplikat dalam dataset. Hal ini menunjukkan bahwa setiap customer memiliki entri yang unik, sehingga data siap digunakan untuk analisis lebih lanjut.
+
+\newpage
+
+\subsubsection{Handle Tipe Data}
+% Handle Tipe Data
+Setelah proses data cleaning dan penanganan duplikasi, langkah selanjutnya adalah memastikan bahwa tipe data pada setiap atribut sesuai dengan yang diharapkan. Hal ini penting untuk memastikan bahwa analisis yang dilakukan dapat berjalan dengan baik. Dalam tugas ini, saya melakukan pengecekan terhadap tipe data pada setiap atribut menggunakan fungsi \texttt{dtypes} pada DataFrame.
+
+\begin{lstlisting}[language=Python]
+# Print tipe data pada setiap atribut
+df.info
+
+# Output
+class 'pandas.core.frame.DataFrame'>
+RangeIndex: 62988 entries, 0 to 62987
+Data columns (total 23 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   MEMBER_NO          62988 non-null  int64  
+ 1   FFP_DATE           62988 non-null  object 
+ 2   FIRST_FLIGHT_DATE  62988 non-null  object 
+.....
+.....
+ 22  Point_NotFlight    62988 non-null  int64  
+ 23  Points_Sum         62988 non-null  int64
+\end{lstlisting}
+
+Dari hasil pengecekan, dapat dilihat bahwa beberapa atribut memiliki tipe data yang tidak sesuai, terutama untuk data yang seharusnya bertipe tanggal. Oleh karena itu, saya melakukan konversi tipe data pada atribut-atribut tersebut menjadi tipe data yang sesuai, seperti mengubah atribut \texttt{FFP\_DATE} dan \texttt{FIRST\_FLIGHT\_DATE} menjadi tipe data \texttt{datetime}. Hal ini dilakukan untuk memastikan bahwa analisis yang dilakukan dapat berjalan dengan baik dan menghasilkan informasi yang akurat.
+
+\subsubsection{Analisis Fitur Numerikal}
+% Analisis Fitur Numerikal
+Setelah proses data cleaning dan penanganan tipe data, langkah selanjutnya adalah melakukan analisis terhadap fitur numerikal yang ada dalam dataset. Fitur numerikal adalah atribut yang memiliki nilai numerik dan dapat digunakan untuk analisis statistik. Dalam tugas ini, saya melakukan analisis dengan menggunakan boxplot untuk melihat distribusi data dan mendeteksi adanya outliers pada fitur numerikal. Boxplot memberikan gambaran yang jelas mengenai nilai minimum, maksimum, median, dan kuartil dari setiap fitur numerikal. Gambar \ref{fig:boxplot} menunjukkan boxplot dari fitur numerikal yang ada dalam dataset.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/boxplot.png}
+    \caption{Boxplot dari fitur numerikal}
+    \label{fig:boxplot}
+\end{figure}
+
+Dari boxplot tersebut, dapat dilihat bahwa beberapa fitur memiliki outliers yang cukup signifikan, dan bahkan ada beberapa yang extreme. Hal ini menunjukkan bahwa ada beberapa customer yang memiliki karakteristik yang berbeda dari mayoritas customer lainnya. Outliers ini perlu diperhatikan dalam proses clustering, karena dapat mempengaruhi hasil clustering yang dihasilkan. Didasari oleh temuan ini saya memutuskan untuk melakukan penanganan terhadap outliers dengan metode IQR (Interquartile Range). Metode ini akan membantu dalam mengidentifikasi dan menangani outliers yang extreme, sehingga data yang digunakan untuk clustering menjadi lebih representatif. Namun sebelum itu kita akan melihat korelasi antar fitur numerikal yang ada pada dataset.
+
+Untuk melihat korelasi antar fitur numerikal, saya menggunakan heatmap yang menunjukkan hubungan antar fitur. Heatmap memberikan gambaran yang jelas mengenai seberapa kuat hubungan antara satu fitur dengan fitur lainnya. Gambar \ref{fig:heatmap} menunjukkan heatmap dari fitur numerikal yang ada dalam dataset.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/heatmap.png}
+    \caption{Heatmap dari fitur numerikal}
+    \label{fig:heatmap}
+\end{figure}
+
+Dari heatmap tersebut, dapat dilihat bahwa beberapa fitur memiliki korelasi yang cukup tinggi yaitu 0.92 , seperti\texttt{SEG\_KM\_SUM} dan \texttt{BP\_SUM} , serta 0.86 untuk \texttt{SUM\_YR\_2} dan \texttt{BP\_SUM}. Hal ini menunjukkan bahwa fitur-fitur tersebut memiliki hubungan yang erat satu sama lain. Korelasi yang tinggi ini dapat mempengaruhi hasil clustering, kita tidak ingin menggunakan fitur yang memiliki multikollinearitas yang tinggi karena dapat menyebabkan masalah dalam interpretasi hasil clustering. Oleh karena itu, saya memutuskan untuk menghapus fitur \texttt{BP\_SUM} dari dataset, karena fitur ini memiliki korelasi yang tinggi dengan fitur lainnya. Namun sebelum membuang fitur tersebut, saya akan melakukan analisis lebih lanjut untuk memastikan bahwa fitur ini tidak memberikan informasi yang signifikan dalam proses clustering.
