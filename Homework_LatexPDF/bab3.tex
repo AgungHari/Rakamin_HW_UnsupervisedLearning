@@ -181,3 +181,90 @@ Untuk melihat korelasi antar fitur numerikal, saya menggunakan heatmap yang menu
 \end{figure}
 
 Dari heatmap tersebut, dapat dilihat bahwa beberapa fitur memiliki korelasi yang cukup tinggi yaitu 0.92 , seperti\texttt{SEG\_KM\_SUM} dan \texttt{BP\_SUM} , serta 0.86 untuk \texttt{SUM\_YR\_2} dan \texttt{BP\_SUM}. Hal ini menunjukkan bahwa fitur-fitur tersebut memiliki hubungan yang erat satu sama lain. Korelasi yang tinggi ini dapat mempengaruhi hasil clustering, kita tidak ingin menggunakan fitur yang memiliki multikollinearitas yang tinggi karena dapat menyebabkan masalah dalam interpretasi hasil clustering. Oleh karena itu, saya memutuskan untuk menghapus fitur \texttt{BP\_SUM} dari dataset, karena fitur ini memiliki korelasi yang tinggi dengan fitur lainnya. Namun sebelum membuang fitur tersebut, saya akan melakukan analisis lebih lanjut untuk memastikan bahwa fitur ini tidak memberikan informasi yang signifikan dalam proses clustering.
+
+\subsubsection{Analisis Fitur Kategorikal}
+% Analisis Fitur Kategorikal
+Setelah melakukan analisis terhadap fitur numerikal, langkah selanjutnya adalah melakukan analisis terhadap fitur kategorikal. Fitur kategorikal adalah atribut yang memiliki nilai kategori atau label, seperti jenis kelamin, tier program, kota asal, dan provinsi asal. Dalam tugas ini, fitur kategorikal kurang relevan mengingat kita akan membuat model K means yang membutuhkan fitur numerikal. Oleh karena itu, kita akan membuang fitur kategorikal yang tidak relevan dari dataset. Fitur kategorikal yang akan dibuang antara lain:
+
+\begin{enumerate}
+    \item GENDER
+    \item WORK\_CITY
+    \item WORK\_PROVINCE
+    \item WORK\_COUNTRY
+\end{enumerate}
+
+Selain karena fitur tersebut tidak relevan untuk model K means, fitur tersebut juga memiliki makna bisnis yang kurang signifikan dalam konteks clustering customer airline frequent flyer program. Oleh karena itu, fitur-fitur tersebut akan dihapus dari dataset untuk memastikan bahwa data yang digunakan untuk clustering hanya terdiri dari fitur-fitur yang relevan dan memberikan informasi yang signifikan.
+
+\subsubsection{Insight}
+% Insight
+Setelah melakukan EDA, Agar dapat memberikan insight yang lebih dalam mengenai data, selain melakukan analisis terhadap fitur-fitur yang sekiranya relevan untuk clustering saya juga akan menggunakan fitur fitur yang tidak relevan untuk menggali insight. Dimana diharapkan fitur fitur tersebut dapat memberikan informasi yang lebih lengkap mengenai karakteristik customer airline frequent flyer program. Insight ini dapat dimanfaatkan untuk tim bisnis dalam mengambil keputusan yang lebih baik terkait strategi pemasaran, pengembangan produk, dan peningkatan layanan kepada pelanggan. 
+
+Agar insight dapat digali dengan baik maka ada beberapa pertanyaan yang perlu dijawab, antara lain:
+
+\begin{enumerate}
+    \item Seberapa loyal member berdasarkan tier FFP?
+    \item Apakah ada segmen umur yang memiliki frekuensi terbang tinggi?
+    \item Apakah pelanggan dengan menukar poin dengan jumlah yang tinggi adalah mereka yang juga paling sering terbang?
+\end{enumerate}
+
+Untuk menjawab pertanyaan pertama tentang loyalitas member berdasarkan tier FFP, kita dapat menghitung jarak penerbangan customer pada setiap tier FFP. Gambar \ref{fig:ffp_tier} menunjukkan jarak penerbangan customer pada setiap tier FFP.
+
+Dapat dilihat dari gambar tersebut bahwa tier FFP yang memiliki jarak penerbangan paling tinggi adalah tier 6, diikuti oleh tier 5, tier 4, dan seterusnya. Hal ini menunjukkan bahwa semakin tinggi tier FFP yang dimiliki oleh customer, semakin tinggi pula jarak penerbangan yang telah dilakukan. Hal ini dapat diartikan bahwa customer dengan tier FFP yang lebih tinggi cenderung lebih loyal terhadap program frequent flyer, karena mereka telah melakukan lebih banyak penerbangan dan mengumpulkan lebih banyak poin.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/fpp1.png}
+    \caption{Jumlah customer pada setiap tier FFP}
+    \label{fig:ffp_tier}
+\end{figure}
+
+Untuk menjawab pertanyaan kedua tentang segmen umur yang memiliki frekuensi terbang tinggi, kita dapat membuat histogram yang menunjukkan distribusi umur customer berdasarkan jumlah penerbangan yang telah dilakukan. Gambar \ref{fig:age_flight_count} menunjukkan distribusi umur customer berdasarkan jumlah penerbangan.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/umur.png}
+    \caption{Distribusi umur customer berdasarkan jumlah penerbangan}
+    \label{fig:age_flight_count}
+\end{figure}
+
+Dari histogram tersebut, dapat dilihat bahwa segmen umur yang memiliki frekuensi terbang tinggi adalah customer dengan umur antara 20 sampai 30 tahun. Hal ini menunjukkan bahwa customer dalam rentang umur tersebut cenderung lebih aktif dalam melakukan penerbangan dibandingkan dengan segmen umur lainnya. Namun dari histogram tersebut juga menunjukan bahwa umur 14 tahun adalah umur yang paling banyak melakukan penerbangan, hal ini mungkin disebabkan oleh anak dari orang tua yang memiliki frequent flyer program, sehingga anak tersebut dapat menggunakan poin dari orang tuanya untuk melakukan penerbangan.
+
+Untuk menjawab pertanyaan ketiga tentang apakah pelanggan dengan menukar poin dengan jumlah yang tinggi adalah mereka yang juga paling sering terbang, kita dapat membuat histogram yang menunjukkan hubungan antara jumlah poin yang ditukar dengan jumlah penerbangan yang telah dilakukan. Gambar \ref{fig:points_flight_count} menunjukkan hubungan antara jumlah poin yang ditukar dengan jumlah penerbangan.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/exchange.png}
+    \caption{Hubungan antara jumlah poin yang ditukar dengan jumlah penerbangan}
+    \label{fig:points_flight_count}
+\end{figure}
+
+Dari histogram tersebut, dapat dilihat bahwa beberapa customer yang menukar poin dengan jumlah yang tinggi memiliki rata rata jumlah penerbangan terbanyak. Hal ini menunjukkan bahwa pelanggan yang sering terbang cenderung lebih aktif dalam menukar poin yang mereka miliki. Namun, ada juga beberapa customer yang menukar poin dengan jumlah yang tinggi tetapi memiliki jumlah penerbangan yang rendah. Hal ini mungkin disebabkan oleh beberapa faktor, seperti penggunaan poin untuk upgrade kelas penerbangan atau penukaran dengan barang.
+
+\subsection{Preprocessing}
+% Preprocessing
+Setelah melakukan EDA dan mendapatkan insight yang lebih dalam mengenai data, langkah selanjutnya adalah melakukan preprocessing terhadap data yang akan digunakan untuk clustering. Preprocessing ini meliputi feature selection, normalisasi data, dan penanganan outliers. Proses ini bertujuan untuk memastikan bahwa data yang digunakan untuk clustering memiliki kualitas yang baik dan dapat memberikan hasil yang optimal.
+
+\subsubsection{Feature Selection}
+% Feature Selection
+Feature selection adalah proses pemilihan fitur-fitur yang relevan untuk digunakan dalam clustering. Dalam tugas ini, saya memilih fitur-fitur yang dianggap relevan berdasarkan analisis EDA yang telah dilakukan sebelumnya. Namun karena dalam tugas ini kita akan menggunakan K-means, maka fitur yang digunakan harus berupa fitur numerikal.
+
+Agar memiliki interpretasi yang baik pemilihan fitur haruslah didasari oleh RFM (Recency, Frequency, Monetary), dimana artinya fitur fitur tersebut haruslah mampu merepresentasikan seberapa sering customer melakukan penerbangan, seberapa lama customer sudah menjadi member, dan seberapa banyak uang yang telah dikeluarkan oleh customer. Berdasarkan hal tersebut, fitur-fitur yang dipilih untuk digunakan dalam clustering adalah sebagai berikut:
+
+\begin{enumerate}
+    \item \texttt{LAST\_TO\_END}: Jarak waktu antara penerbangan terakhir dengan pesanan penerbangan paling akhir. Ini menggambarkan Recency dari customer.
+    \item \texttt{AVG\_INTERVAL}: Rata-rata jarak waktu antara penerbangan yang dilakukan oleh customer. Ini menggambarkan Frequency dari customer.
+    \item \texttt{SUM\_YR\_1}: Total fare revenue yang dihasilkan oleh customer pada tahun pertama. Ini menggambarkan Monetary value dari customer.
+\end{enumerate}
+
+Sehingga dengan menggunakan fitur \texttt{LAST\_TO\_END}, \texttt{AVG\_INTERVAL}, dan \texttt{SUM\_YR\_1}, diharapkan dapat memberikan informasi yang cukup untuk melakukan clustering terhadap customer airline frequent flyer program. Fitur-fitur ini dipilih karena dianggap relevan dan dapat memberikan wawasan yang lebih dalam mengenai perilaku dan karakteristik customer. Target saya adalah dapat membentuk cluster yang dapat merepresentasikan segmen-segmen customer yang berbeda berdasarkan perilaku mereka dalam menggunakan layanan penerbangan. Adapun cluster tersebut adalah :
+
+\begin{enumerate}
+    \item Cluster dengan frekuensi terbang tinggi, jarak interval waktu penerbangan yang rendah, dan nilai monetary yang tinggi. Ini berarti customer tersebut sering melakukan penerbangan, jarak waktu antar penerbangan relatif dekat, dan mengeluarkan uang yang banyak untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer loyal yang sering menggunakan layanan penerbangan. Ini bisa disebut Customer VIP.
+    \item Cluster dengan frekuensi terbang rendah, jarak interval waktu penerbangan yang rendah, dan nilai monetary yang tinggi. Ini berarti customer tersebut jarang melakukan penerbangan, tetapi ketika melakukan penerbangan mereka mengeluarkan uang yang banyak untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer yang tidak terlalu loyal tetapi ketika mereka terbang mereka mengeluarkan uang yang banyak. Ini bisa disebut Customer Premium.
+    \item Cluster dengan frekuensi terbang tinggi, jarak interval waktu penerbangan yang rendah, dan nilai monetary yang rendah. Ini berarti customer tersebut sering melakukan penerbangan, jarak waktu antar penerbangan relatif dekat, tetapi mengeluarkan uang yang sedikit untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer yang sering menggunakan layanan penerbangan tetapi tidak terlalu loyal. Ini bisa disebut Customer Frequent.
+    \item Cluster dengan frekuensi terbang rendah, jarak interval waktu penerbangan yang tinggi, dan nilai monetary yang rendah. Ini berarti customer tersebut jarang melakukan penerbangan, jarak waktu antar penerbangan relatif jauh, dan mengeluarkan uang yang sedikit untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer yang tidak terlalu loyal terhadap layanan penerbangan. Ini bisa disebut Customer Inactive.
+\end{enumerate}
+
+
+
+

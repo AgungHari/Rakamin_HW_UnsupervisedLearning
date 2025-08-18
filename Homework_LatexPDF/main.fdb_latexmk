@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1755494888.16799 "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" "main.pdf" "main" 1755494890.27533 0
+["pdflatex"] 1755496685.49026 "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" "main.pdf" "main" 1755496687.87318 0
   "bab1.tex" 1755304119 3203 cf5bee19e5ccd72bbb997a6dbeed0aed ""
   "bab2.tex" 1755422422 13379 df027e92e148af257120bbd51f2a6fc1 ""
-  "bab3.tex" 1755494887 13812 a2f6b995395ead3418fa41bd3940f6ff ""
+  "bab3.tex" 1755496683 23444 6378fa59f0e3f75d1631dd8fe42afb25 ""
   "bab4.tex" 1755303320 79 46ae0e76b3e6307738ba775690b51eb8 ""
   "bab5.tex" 1755303349 40 d20a8b0c48374529a45e1918429b71a6 ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1718771087 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -106,11 +106,14 @@
   "c:/texlive/2024/texmf.cnf" 1718776229 713 e69b156964470283e0530f5060668171 ""
   "d:/Rakamin_UnsupervisedLearning/Homework_LatexPDF/main.tex" 1755422716 1141 2de27cb2cd4da3dc6b310c70cb84a035 ""
   "gambar/boxplot.png" 1755494210 157894 b4b5d7b4abdb58c6d449938a5240fff8 ""
+  "gambar/exchange.png" 1755495897 28705 892a41a92ff3f2511cb8c49e67b864de ""
   "gambar/ffp.jpg" 1755421856 263690 6b9061cb9ee2913c439865267ac7fb90 ""
   "gambar/flowchart.png" 1755493319 8049 d335498d7648106037900e7fabec073c ""
+  "gambar/fpp1.png" 1755495579 23208 ada173f9347aed0029581902555a0418 ""
   "gambar/heatmap.png" 1755494546 109982 d95ce6bbbb0c4b1dc9095fd0c6b3af3e ""
-  "main.aux" 1755494890 4044 7f0c6d49414b7483a54d017d4ad052d9 "pdflatex"
-  "main.out" 1755494890 3911 f145646a94c52deae041c9b41e4b972d "pdflatex"
+  "gambar/umur.png" 1755495725 36826 d40251773839e65fbe7b3bd3a26054c3 ""
+  "main.aux" 1755496687 5379 8f0f0db4bf0f0387ef746a2ca5281f67 "pdflatex"
+  "main.out" 1755496687 4497 1101ae82f8b598cc7c875ff46689f861 "pdflatex"
   "main.tex" 1755422716 1141 2de27cb2cd4da3dc6b310c70cb84a035 ""
   (generated)
   "main.aux"
