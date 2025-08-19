@@ -259,11 +259,64 @@ Agar memiliki interpretasi yang baik pemilihan fitur haruslah didasari oleh RFM 
 Sehingga dengan menggunakan fitur \texttt{LAST\_TO\_END}, \texttt{AVG\_INTERVAL}, dan \texttt{SUM\_YR\_1}, diharapkan dapat memberikan informasi yang cukup untuk melakukan clustering terhadap customer airline frequent flyer program. Fitur-fitur ini dipilih karena dianggap relevan dan dapat memberikan wawasan yang lebih dalam mengenai perilaku dan karakteristik customer. Target saya adalah dapat membentuk cluster yang dapat merepresentasikan segmen-segmen customer yang berbeda berdasarkan perilaku mereka dalam menggunakan layanan penerbangan. Adapun cluster tersebut adalah :
 
 \begin{enumerate}
-    \item Cluster dengan frekuensi terbang tinggi, jarak interval waktu penerbangan yang rendah, dan nilai monetary yang tinggi. Ini berarti customer tersebut sering melakukan penerbangan, jarak waktu antar penerbangan relatif dekat, dan mengeluarkan uang yang banyak untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer loyal yang sering menggunakan layanan penerbangan. Ini bisa disebut Customer VIP.
-    \item Cluster dengan frekuensi terbang rendah, jarak interval waktu penerbangan yang rendah, dan nilai monetary yang tinggi. Ini berarti customer tersebut jarang melakukan penerbangan, tetapi ketika melakukan penerbangan mereka mengeluarkan uang yang banyak untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer yang tidak terlalu loyal tetapi ketika mereka terbang mereka mengeluarkan uang yang banyak. Ini bisa disebut Customer Premium.
-    \item Cluster dengan frekuensi terbang tinggi, jarak interval waktu penerbangan yang rendah, dan nilai monetary yang rendah. Ini berarti customer tersebut sering melakukan penerbangan, jarak waktu antar penerbangan relatif dekat, tetapi mengeluarkan uang yang sedikit untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer yang sering menggunakan layanan penerbangan tetapi tidak terlalu loyal. Ini bisa disebut Customer Frequent.
-    \item Cluster dengan frekuensi terbang rendah, jarak interval waktu penerbangan yang tinggi, dan nilai monetary yang rendah. Ini berarti customer tersebut jarang melakukan penerbangan, jarak waktu antar penerbangan relatif jauh, dan mengeluarkan uang yang sedikit untuk layanan penerbangan. Segmen ini dapat dianggap sebagai customer yang tidak terlalu loyal terhadap layanan penerbangan. Ini bisa disebut Customer Inactive.
+    \item Recency Rendah, Frequency Rendah, Monetary Tinggi merupakan Customer VIP.
+    \item Recency Rendah, Frequency Rendah, Monetary Rendah merupakan Customer Active Frequent Low Spender.
+    \item Recency Tinggi, Frequency Rendah, Monetary Rendah merupakan Lapsed Frequent Low Spender.
+    \item Recency Rendah, Frequency Tinggi, Monetary Rendah merupakan Occasional Low Value.
 \end{enumerate}
+
+Sehingga hasil dari model clustering ini diharapkan dapat memberikan wawasan yang lebih dalam mengenai perilaku dan karakteristik customer airline frequent flyer program. Dengan demikian, perusahaan penerbangan dapat mengoptimalkan strategi pemasaran dan meningkatkan pengalaman pelanggan.
+
+\subsubsection{Outlier Handling}
+% Outlier Handling
+Setelah melakukan feature selection, langkah selanjutnya adalah menangani outliers yang ada pada fitur-fitur yang telah dipilih. Outliers dapat mempengaruhi hasil clustering yang dihasilkan, sehingga perlu dilakukan penanganan untuk memastikan bahwa data yang digunakan untuk clustering lebih representatif. Dalam tugas ini, saya menggunakan metode IQR (Interquartile Range) untuk mengidentifikasi dan menangani outliers. 
+
+Metode IQR adalah metode yang umum digunakan untuk mendeteksi outliers dengan cara menghitung rentang interkuartil (IQR) dari data. Rentang interkuartil adalah selisih antara kuartil ketiga (Q3) dan kuartil pertama (Q1). Outliers didefinisikan sebagai nilai yang berada di bawah Q1 - 1.5 * IQR atau di atas Q3 + 1.5 * IQR.
+
+Gambar \ref{fig:outlier_handling} menunjukkan boxplot sebelum dilakukan penanganan outliers :
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/outlier.png}
+    \caption{Boxplot sebelum penanganan outliers}
+    \label{fig:outlier_handling}
+\end{figure}
+
+Setelah melakukan penanganan outliers, saya akan membuat boxplot kembali untuk melihat apakah outliers telah berhasil diatasi. Gambar \ref{fig:outlier_handling_after} menunjukkan boxplot setelah dilakukan penanganan outliers :
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{gambar/clean.png}
+    \caption{Boxplot setelah penanganan outliers}
+    \label{fig:outlier_handling_after}
+\end{figure}
+
+Dari boxplot tersebut, dapat dilihat bahwa outliers telah berhasil diatasi, sehingga data yang digunakan untuk clustering menjadi lebih representatif. Penanganan outliers ini penting dilakukan untuk memastikan bahwa hasil clustering yang dihasilkan tidak dipengaruhi oleh nilai-nilai yang ekstrem.
+
+\subsubsection{Standardisasi Data}
+% Standardisasi Data
+Setelah melakukan penanganan outliers, langkah selanjutnya adalah melakukan standardisasi data. Standardisasi data adalah proses mengubah skala fitur-fitur numerikal sehingga memiliki rata-rata 0 dan deviasi standar 1. Kita akan menggunakan StandardScaler dari library scikit-learn untuk melakukan standardisasi data. Standardisasi ini penting dilakukan karena K-means sensitif terhadap skala fitur, sehingga fitur-fitur yang memiliki skala yang berbeda dapat mempengaruhi hasil clustering yang dihasilkan.
+
+\begin{lstlisting}[language=Python]
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+df_scaled = df_cleaned.copy()
+df_scaled[['AVG_INTERVAL', 'SUM_YR_1', 'LAST_TO_END']] = scaler.fit_transform(
+    df_cleaned[['AVG_INTERVAL', 'SUM_YR_1', 'LAST_TO_END']])
+
+
+# Print hasil standardisasi
+    SUM_YR_1	LAST_TO_END	AVG_INTERVAL
+84	2.264277	-0.684468	-0.579736
+116	0.928944	-0.857778	-0.742002
+121	-1.037080	-0.955987	-1.297966
+.....
+.....
+\end{lstlisting}
+
+Setelah melakukan standardisasi, data yang digunakan untuk clustering sudah siap. Data ini akan digunakan sebagai input untuk model K-means yang akan dibangun pada tahap selanjutnya. Dengan data yang telah distandarisasi, diharapkan hasil clustering yang dihasilkan akan lebih akurat dan representatif terhadap karakteristik customer airline frequent flyer program.
+
 
 
 
