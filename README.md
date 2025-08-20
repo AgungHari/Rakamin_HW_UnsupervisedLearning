@@ -2,6 +2,11 @@
 
 # Rakamin Homework : Unsupervised Learning
 
+![Matplotlib version](https://img.shields.io/badge/Matplotlib-v3.9.4-blue)
+![Seaborn version](https://img.shields.io/badge/Seaborn-v0.13.2-darkred)
+![Scikit-Learn version](https://img.shields.io/badge/ScikitLearn-v1.6.1-orange)
+![IPyKernel version](https://img.shields.io/badge/IPyKernel-v6.30.1-yellow)
+
 ## Deskripsi
 
 Repositori ini berisi rangkaian materi dan homework selama mengikuti Bootcamp di Rakamin Academy. Setiap minggu dilengkapi modul pembelajaran (PDF) dan tugas untuk memperkuat pemahaman konsep.
