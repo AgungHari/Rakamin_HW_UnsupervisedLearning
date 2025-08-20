@@ -6,6 +6,7 @@
 ![Seaborn version](https://img.shields.io/badge/Seaborn-v0.13.2-darkred)
 ![Scikit-Learn version](https://img.shields.io/badge/ScikitLearn-v1.6.1-orange)
 ![IPyKernel version](https://img.shields.io/badge/IPyKernel-v6.30.1-yellow)
+![LaTex version](https://img.shields.io/badge/LaTeX-v1.40.26-green)
 
 ## Deskripsi
 
